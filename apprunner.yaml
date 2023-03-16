@@ -2,9 +2,21 @@ version: 1.0
 runtime: ruby31
 build:
   commands:
+    pre-build:
+      - echo "Build Start"
     build:
+      - yum -y update postgresql
+      - PYTHON=python2 amazon-linux-extras install -y epel postgresql14
+      - yum --enablerepo=epel -y install freetds-devel geos-devel git-core
+      - bundle config silence_root_warning true
+      - gem update --system --no-document 
       - bundle install
+      - yarn install
+      - bundle exec rails assets:precompile
+    post-build:
+      - echo "Build OK!"   
 run:
+  runtime-version: 3.1
   command: bundle exec rackup --host 0.0.0.0 -p 4567
   network:
     port: 4567
