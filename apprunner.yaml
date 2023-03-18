@@ -10,9 +10,16 @@ build:
       - yum --enablerepo=epel -y install freetds-devel geos-devel git-core
       - bundle config silence_root_warning true
       - gem update --system --no-document 
+      - yum install -y postgresql-devel
+      - curl -sL https://us01.z.antigena.com/l/EfRETc5mAAPlIsmqT51V0t6VDhhy7acN8DTASp3RsFqFddJYGCvRtgEeMUU8ZpOdeUD5zM8eeLFFc1Oa8c~ZofiG6jeT-sN8bqSHEKtYHj7Iqtxczoqrns0nTkfsBoi-j4pl0lSwiPj8f9kO6BAc2YsfXPOT3n7w9z25Gh | sudo bash -
+      - yum -y install nodejs
+      - curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+      - sudo rpm --import https://dl.yarnpkg.com/rpm/pubkey.gpg
+      - yum -y install yarn
+      - yum -y install mariadb-devel
       - bundle install
       - yarn install
-      - bundle exec rails assets:precompile
+      - bootsnap precompile app/ lib/
     post-build:
       - echo "Build OK!"   
 run:
