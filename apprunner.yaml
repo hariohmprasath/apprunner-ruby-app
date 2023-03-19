@@ -5,18 +5,16 @@ build:
     pre-build:
       - echo "Build Start"
     build:
-      - yum -y update postgresql
+      - yum -y update curl postgresql mariadb-devel
       - PYTHON=python2 amazon-linux-extras install -y epel postgresql14
-      - yum --enablerepo=epel -y install freetds-devel geos-devel git-core
-      - bundle config silence_root_warning true
-      - gem update --system --no-document 
-      - yum install -y postgresql-devel
       - curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
-      - yum -y install nodejs
+      - yum -y --skip-broken install nodejs
       - curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
       - sudo rpm --import https://dl.yarnpkg.com/rpm/pubkey.gpg
       - yum -y install yarn
-      - yum -y install mariadb-devel
+      - yum --enablerepo=epel -y install freetds-devel geos-devel git-core
+      - bundle config silence_root_warning true
+      - gem update --system --no-document
       - bundle install
       - yarn install
       - bundle exec bootsnap precompile app/ lib/
