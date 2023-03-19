@@ -5,8 +5,8 @@ build:
     pre-build:
       - echo "Build Start"
     build:
-      - yum -y update curl postgresql mariadb-devel
-      - yum -y install mariadb-devel
+      - yum -y update curl postgresql
+      - yum -y install mariadb-devel postgresql-devel
       - PYTHON=python2 amazon-linux-extras install -y epel postgresql14
       - curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
       - yum -y --skip-broken install nodejs
