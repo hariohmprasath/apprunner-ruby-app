@@ -3,7 +3,7 @@ runtime: ruby31
 build:
   commands:
     pre-build:
-      - echo "Build Start"
+      - echo "Build Starting"
     build:
       - yum -y update curl postgresql
       - yum -y install mariadb-devel postgresql-devel
